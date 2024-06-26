@@ -16,11 +16,11 @@ echo -e "${GREEN}[Step 1] Installing additional packages${NC}"
 echo ""
 echo -e "Packages: ${GREEN}react-hook-form react-datepicker react-dropzone react-image-lightbox lodash.get"
 echo -e "${NC}"
-yarn add react-hook-form react-datepicker react-dropzone react-image-lightbox lodash.get
+pnpm install react-hook-form react-datepicker react-dropzone react-image-lightbox lodash.get
 echo -e ""
 echo -e "Dev Packages: ${GREEN}@types/react-datepicker @types/lodash.get"
 echo -e "${NC}"
-yarn add -D @types/react-datepicker @types/lodash.get
+pnpm install -D @types/react-datepicker @types/lodash.get
 # endregion  //*======== Install Packages ===========
 
 #region  //*=========== Create Directories ===========
