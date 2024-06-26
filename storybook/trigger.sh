@@ -21,15 +21,11 @@ echo -e "Installing Dev Packages: ${GREEN}@storybook/addon-postcss plop inquirer
 echo -e "${NC}"
 pnpm install -D @storybook/addon-postcss plop inquirer-fuzzy-path
 
-echo -e "${NC}"
-echo -e "${GREEN}[Step 2] Adding Webpack 5 as a resolution${NC}"
-npx --no -y npe resolutions.webpack "^5"
-pnpm
 
-echo -e "${GREEN}[Step 3] Adding BROWSER=none to pnpm storybook${NC}"
+echo -e "${GREEN}[Step 2] Adding BROWSER=none to pnpm storybook${NC}"
 npx -y npe scripts.storybook "storybook dev -p 6006 --ci"
 
-echo -e "${GREEN}[Step 4] Disabling Telemetry data of Storybook${NC}"
+echo -e "${GREEN}[Step 3] Disabling Telemetry data of Storybook${NC}"
 # Insert the core configuration in .storybook/main.ts
 awk '/const config: StorybookConfig = {/ {
     print
