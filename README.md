@@ -13,7 +13,7 @@
 - [x] NProgress
 - [x] I18n with next-i18next
 
-## React Hook Form
+## React Hook Form (OutDated)
 
 [See the readme](https://github.com/fthozdemir/expansion-pack/blob/main/rhf/README.md)
 
