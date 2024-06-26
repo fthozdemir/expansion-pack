@@ -15,7 +15,7 @@
 
 ## React Hook Form
 
-[See the readme](https://github.com/theodorusclarence/expansion-pack/blob/main/rhf/README.md)
+[See the readme](https://github.com/fthozdemir/expansion-pack/blob/main/rhf/README.md)
 
 ```bash
 curl -s https://raw.githubusercontent.com/theodorusclarence/expansion-pack/main/rhf/trigger.sh | bash -s
