@@ -17,9 +17,9 @@ echo -e "This may take a while to download."
 echo ""
 echo y | pnpm dlx storybook@latest init
 echo -e ""
-echo -e "Installing Dev Packages: ${GREEN}@storybook/addon-postcss plop inquirer-fuzzy-path"
+echo -e "Installing Dev Packages: ${GREEN}plop inquirer-fuzzy-path"
 echo -e "${NC}"
-pnpm install -D @storybook/addon-postcss plop inquirer-fuzzy-path
+pnpm install -D  plop inquirer-fuzzy-path
 
 
 echo -e "${GREEN}[Step 2] Adding BROWSER=none to pnpm storybook${NC}"
