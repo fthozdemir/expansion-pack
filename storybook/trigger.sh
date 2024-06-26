@@ -12,10 +12,10 @@ echo -e "${NC}"
 
 #region  //*=========== Install Packages ===========
 echo -e "${NC}"
-echo -e "${GREEN}[Step 1] Initializing Storybook with Webpack 5${NC}"
+echo -e "${GREEN}[Step 1] Initializing Storybook ${NC}"
 echo -e "This may take a while to download."
 echo ""
-echo y | npx -y sb init --builder webpack5
+echo y | pnpm dlx storybook@latest init
 echo -e ""
 echo -e "Installing Dev Packages: ${GREEN}@storybook/addon-postcss plop inquirer-fuzzy-path"
 echo -e "${NC}"
@@ -27,7 +27,18 @@ npx --no -y npe resolutions.webpack "^5"
 pnpm
 
 echo -e "${GREEN}[Step 3] Adding BROWSER=none to pnpm storybook${NC}"
-npx -y npe scripts.storybook "storybook dev -p 6006"
+npx -y npe scripts.storybook "storybook dev -p 6006 --ci"
+
+echo -e "${GREEN}[Step 4] Disabling Telemetry data of Storybook${NC}"
+# Insert the core configuration in .storybook/main.ts
+awk '/const config: StorybookConfig = {/ {
+    print
+    print "  core: {"
+    print "    disableTelemetry: true, // 👈 Disables telemetry"
+    print "  },"
+    next
+}1' .storybook/main.ts > .storybook/main.tmp && mv .storybook/main.tmp .storybook/main.ts
+
 # endregion  //*======== Install Packages ===========
 
 #region  //*=========== Create Directories ===========
