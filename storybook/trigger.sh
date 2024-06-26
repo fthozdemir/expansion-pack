@@ -27,7 +27,7 @@ npx --no -y npe resolutions.webpack "^5"
 pnpm
 
 echo -e "${GREEN}[Step 3] Adding BROWSER=none to pnpm storybook${NC}"
-npx -y npe scripts.storybook "BROWSER=none start-storybook -p 6006"
+npx -y npe scripts.storybook "storybook dev -p 6006"
 # endregion  //*======== Install Packages ===========
 
 #region  //*=========== Create Directories ===========
@@ -42,8 +42,6 @@ echo ""
 DIRNAME="storybook"
 
 files=(
-  ".storybook/preview.js"
-  ".storybook/main.js"
   "plopfile.js"
   "src/generators/Component.stories.tsx.hbs"
   "src/generators/story.js"
@@ -51,7 +49,7 @@ files=(
 for i in "${files[@]}"
 do
   echo "Downloading... $i"
-  curl -LJs -o $i https://raw.githubusercontent.com/theodorusclarence/expansion-pack/main/$DIRNAME/$i
+  curl -LJs -o $i https://raw.githubusercontent.com/fthozdemir/expansion-pack/main/$DIRNAME/$i
 done
 
 echo ""
