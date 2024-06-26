@@ -51,12 +51,12 @@ files=(
 for i in "${files[@]}"
 do
   echo "Downloading... $i"
-  curl -LJs -o $i https://raw.githubusercontent.com/theodorusclarence/expansion-pack/main/$DIRNAME/$i
+  curl -LJs -o $i https://raw.githubusercontent.com/fthozdemir/expansion-pack/main/$DIRNAME/$i
 done
 
 # Append datepicker css reset
 echo "Appending additional css..."
-curl -s https://raw.githubusercontent.com/theodorusclarence/expansion-pack/main/$DIRNAME/datepicker.css >> src/styles/globals.css
+curl -s https://raw.githubusercontent.com/fthozdemir/expansion-pack/main/$DIRNAME/datepicker.css >> src/styles/globals.css
 #endregion  //*======== Downloading Files ===========
 
 
