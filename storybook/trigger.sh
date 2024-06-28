@@ -50,7 +50,6 @@ DIRNAME="storybook"
 
 files=(
   "plopfile.js"
-  "src/generators/Component.stories.tsx.hbs"
   "src/generators/story.js"
 )
 for i in "${files[@]}"
