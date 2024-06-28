@@ -21,7 +21,7 @@
 curl -s https://raw.githubusercontent.com/fthozdemir/expansion-pack/main/rhf/trigger.sh | bash -s
 ```
 
-## Storybook
+## Storybook(AI Powered)
 
 [See the readme](https://github.com/fthozdemir/expansion-pack/blob/main/storybook/README.md)
 
