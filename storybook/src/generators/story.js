@@ -1,54 +1,57 @@
 /*eslint-disable */
-const { readFile, writeFile, mkdir } = require("fs/promises");
-const fetch = require("node-fetch");
-const path = require("path");
-require("dotenv").config();
-
-console.log("OPENAI_API_KEY:", process.env.OPENAI_API_KEY); // Debugging line
+const { readFile, writeFile, mkdir } = require('fs/promises');
+const fetch = require('node-fetch');
+const path = require('path');
+require('dotenv').config();
+const apiKey = process.env.OPENAI_API_KEY;
+if (!apiKey || apiKey.length < 15) {
+  console.error('Please set OPENAI_API_KEY in .env file');
+  process.exit(1);
+}
 
 module.exports = {
-  description: "Component Story Generator",
+  description: 'Component Story Generator',
   prompts: [
     {
-      type: "fuzzypath",
-      message: "Component name for story",
-      name: "path",
-      rootPath: "src",
-      itemType: "file",
+      type: 'fuzzypath',
+      message: 'Component name for story',
+      name: 'path',
+      rootPath: 'src',
+      itemType: 'file',
     },
   ],
   actions: [
     {
-      type: "custom",
+      type: 'custom',
       run: async (data) => {
         try {
-          console.log("data: ", data);
+          console.log('data: ', data);
           const filePath = data.path;
-          console.log("filePath: ", filePath);
-          const fileContent = await readFile(filePath, "utf8");
-          const bearer = `Bearer ${process.env.OPENAI_API_KEY}`;
+          const fileContent = await readFile(filePath, 'utf8');
+          const bearer = `Bearer ${apiKey}`;
           const content = `This is important. Only and only give me code. This is very important only send code as response !!\n
           also I give you to see this example code for your reference:\n\n${exampleResponse}\n\n
-          There is another rule, which is when I give you {filePath} it means component route is it but without src/ and .tsx extension. add @/ in front of it. \n\n
-          There is another rule, also the {filePath} is "title" of the storie file but without src \n\n
-          There is another rule, always import tags: ['autodocs'],\n\n
+          rule1: which is when I give you {filePath} it means component route is it but without src/ and .tsx extension. add @/ in front of it. \n\n
+          rule2:which is consider the given component export itself with export const or export default, while generating stories.ts file. Always import things right \n\n
+          rule3: also the {filePath} is "title" of the storie file but without src \n\n
+          rule4: always import tags: ['autodocs'],\n\n
           Be very careful with the rules. \n\n
           Be very careful with arguments of component. \n\n
           filePath: ${filePath}\n\n
 Generate a stories.ts file for the following React component:\n\n${fileContent}`;
           const response = await fetch(
-            "https://api.openai.com/v1/chat/completions",
+            'https://api.openai.com/v1/chat/completions',
             {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
                 Authorization: bearer,
               },
               body: JSON.stringify({
-                model: "gpt-4o",
+                model: 'gpt-4o',
                 messages: [
                   {
-                    role: "user",
+                    role: 'user',
                     content,
                   },
                 ],
@@ -61,28 +64,27 @@ Generate a stories.ts file for the following React component:\n\n${fileContent}`
           const responseData = await response.json();
           let aiResponse = responseData.choices[0].message.content;
           aiResponse = aiResponse
-            .replace(/^```typescript\s+/, "")
-            .replace(/^```tsx\s+/, "")
-            .replace(/^```\s+/, "")
-            .replace(/\s*```$/, "");
+            .replace(/^```typescript\s+/, '')
+            .replace(/^```tsx\s+/, '')
+            .replace(/^```\s+/, '')
+            .replace(/\s*```$/, '');
 
-          const outputDir = filePath.replace(/\/[^/]*$/, "/__stories__");
-          console.log("outputPath 00000", outputDir);
+          const outputDir = filePath.replace(/\/[^/]*$/, '/__stories__');
 
           const outputPath = path.join(
             outputDir,
             filePath
-              .split("/")
+              .split('/')
               .pop()
-              .replace(/\.tsx$/, ".stories.tsx"),
+              .replace(/\.tsx$/, '.stories.tsx'),
           );
 
           await mkdir(outputDir, { recursive: true });
-          await writeFile(outputPath, aiResponse, "utf8");
+          await writeFile(outputPath, aiResponse, 'utf8');
 
           console.log(`Story file generated at ${outputPath}`);
         } catch (error) {
-          console.error("Error generating story file:", error);
+          console.error('Error generating story file:', error);
         }
       },
     },
