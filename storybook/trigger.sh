@@ -15,8 +15,12 @@ echo -e "${NC}"
 echo -e "${GREEN}[Step 1] Initializing Storybook ${NC}"
 echo -e "This may take a while to download."
 echo ""
-echo y | pnpm dlx storybook@latest add @storybook/addon-styling-webpack
+echo y | pnpm dlx storybook@latest init
 echo -e ""
+echo ""
+echo npx storybook@latest add @storybook/addon-themes
+echo -e ""
+
 echo -e "Installing Dev Packages: ${GREEN}plop inquirer-fuzzy-path"
 echo -e "${NC}"
 pnpm install -D  plop inquirer-fuzzy-path
