@@ -17,7 +17,7 @@ echo -e "${GREEN}[Step 1] Installing additional packages${NC}"
 echo ""
 echo -e "Packages: ${GREEN}next-i18next i18next react-i18next"
 echo -e "${NC}"
-pnpm add next-i18next i18next react-i18next
+pnpm install next-i18next i18next react-i18next
 # endregion  //*======== Install Packages ===========
 
 #region  //*=========== Create Directories ===========
