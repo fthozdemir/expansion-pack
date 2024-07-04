@@ -68,7 +68,7 @@ PREVIEW_TS=".storybook/preview.ts"
 IMPORT_STATEMENT='import "@/styles/globals.css";'
 
 if ! grep -q "$IMPORT_STATEMENT" "$PREVIEW_TS"; then
-  { echo "$IMPORT_STATEMENT"; cat "$PREVIEW_TS"; } > temp && mv temp "$PREVIEW_TS"
+  echo "$IMPORT_STATEMENT" | cat - "$PREVIEW_TS" > temp && mv temp "$PREVIEW_TS"
   if [ $? -ne 0 ]; then
     echo -e "${RED}Error: Failed to add import statement to $PREVIEW_TS.${NC}"
     exit 1
