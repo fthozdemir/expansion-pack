@@ -15,7 +15,7 @@ echo -e "${NC}"
 echo -e "${GREEN}[Step 1] Initializing Storybook ${NC}"
 echo -e "This may take a while to download."
 echo ""
-echo y | pnpm dlx storybook@latest init
+echo y | pnpm dlx storybook@latest add @storybook/addon-styling-webpack
 echo -e ""
 echo -e "Installing Dev Packages: ${GREEN}plop inquirer-fuzzy-path"
 echo -e "${NC}"
@@ -57,6 +57,21 @@ do
   echo "Downloading... $i"
   curl -LJs -o $i https://raw.githubusercontent.com/fthozdemir/expansion-pack/main/$DIRNAME/$i
 done
+
+echo -e "${GREEN}[Step 6] Adding import to .storybook/preview.ts${NC}"
+# Add import statement to the first line of .storybook/preview.ts
+PREVIEW_TS=".storybook/preview.ts"
+IMPORT_STATEMENT='import "@/styles/globals.css";'
+
+if ! grep -q "$IMPORT_STATEMENT" "$PREVIEW_TS"; then
+  sed -i "1s/^/$IMPORT_STATEMENT\n/" "$PREVIEW_TS"
+  if [ $? -ne 0 ]; then
+    echo -e "${RED}Error: Failed to add import statement to $PREVIEW_TS.${NC}"
+    exit 1
+  fi
+else
+  echo -e "${GREEN}Import statement already exists in $PREVIEW_TS.${NC}"
+fi
 
 echo ""
 echo -e "${CYAN}============================================"
