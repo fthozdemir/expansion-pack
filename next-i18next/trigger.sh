@@ -22,7 +22,7 @@ yarn add next-i18next i18next react-i18next
 
 #region  //*=========== Create Directories ===========
 mkdir -p public/locales/en
-mkdir -p public/locales/id
+mkdir -p public/locales/tr
 #endregion  //*======== Create Directories ===========
 
 #region  //*=========== Downloading Files ===========
